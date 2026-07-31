@@ -1,0 +1,355 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE, TESTIMONIAL, TRUST } from '../../data/site.js';
+
+const title = 'About Premier Heating & Cooling | Strathroy HVAC Contractor';
+const description =
+  'Premier Heating & Cooling is a licensed, TSSA registered HVAC contractor in Strathroy, Ontario, serving homeowners and home builders across the area.';
+
+// Natural pixel dimensions of the trust logos, in TRUST order.
+const TRUST_DIMS = {
+  '/assets/lennox-logo-small.png': [300, 91],
+  '/assets/Better-Business-Bureau-logo-1-450x171.png': [450, 171],
+  '/assets/communityvotes-winner-logo.png': [350, 279],
+};
+
+const CREDENTIALS = [
+  {
+    label: 'Licensed and insured',
+    note: 'Licensed for the work we do and insured on every job we take on.',
+  },
+  {
+    label: 'TSSA registered',
+    note: 'Registered with the Technical Standards and Safety Authority for gas fired equipment in Ontario.',
+  },
+  {
+    label: 'WSIB covered',
+    note: 'Our people are covered by WSIB, so a job at your house never becomes your liability.',
+  },
+  {
+    label: 'Lennox authorized dealer',
+    note: 'We install and repair Lennox equipment and can back it with the full Lennox warranty. We service all makes.',
+  },
+];
+---
+<Base title={title} description={description} active="about">
+  <!-- 1. Page header -->
+  <section class="section section--tight bg-steel pagehead">
+    <div class="container">
+      <h1>About Premier Heating &amp; Cooling</h1>
+      <p class="lede">
+        Premier is a licensed, TSSA registered heating and cooling contractor in Strathroy,
+        working for homeowners and home builders across the surrounding towns.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Story -->
+  <section class="section">
+    <div class="container">
+      <div class="story">
+        <h2>Doing the job right the first time</h2>
+        <p>
+          Premier Heating &amp; Cooling has extensive experience in the heating and cooling
+          trade, and the point of the company is straightforward: give every customer the
+          best service we can, on the day we said we would be there.
+        </p>
+        <p>
+          We have installed a lot of systems over that time, and the work has earned us a
+          reputation for getting the job done right the first time. That matters more in
+          this trade than it sounds. A furnace sized wrong or a gas line run carelessly
+          turns into somebody's cold January.
+        </p>
+        <p>
+          Our service is quick, professional and reliable, and much of our work comes from
+          repeat customers and referrals. People call us back, and they pass our name to
+          their neighbours, because of how our technicians handled the last job.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Credentials -->
+  <section class="section creds">
+    <div class="container reveal">
+      <h2>Licensed, registered and covered</h2>
+      <hr class="temp-rule temp-rule--short" aria-hidden="true" />
+      <ul class="cred-grid">
+        {CREDENTIALS.map((c) => (
+          <li class="cred">
+            <h3>{c.label}</h3>
+            <p>{c.note}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="cred-logos">
+        {TRUST.map((t, i) => (
+          <img
+            src={t.image}
+            alt={t.alt}
+            width={TRUST_DIMS[t.image][0]}
+            height={TRUST_DIMS[t.image][1]}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+            decoding="async"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Builder HVAC -->
+  <section class="section bg-steel">
+    <div class="container builder reveal">
+      <div class="builder__copy">
+        <p class="eyebrow">Builder HVAC</p>
+        <h2>HVAC for new home construction</h2>
+        <p>
+          A large share of our work happens before anyone moves in. We work with home
+          builders to size, rough in and finish complete heating and cooling systems,
+          house after house, on the builder's schedule.
+        </p>
+        <p>
+          New construction leaves little room for a second attempt, because nobody wants
+          to open a finished wall to correct a duct run. Getting it right the first time
+          is why builders keep us on their list, and it is the same standard we bring to a
+          service call on a house that has been lived in for 30 years.
+        </p>
+        <blockquote class="builder__quote">
+          <p>{TESTIMONIAL.quote}</p>
+          <footer>
+            <cite>{TESTIMONIAL.author}</cite>, {TESTIMONIAL.org}
+          </footer>
+        </blockquote>
+      </div>
+      <figure class="builder__media">
+        <img
+          src="/assets/ductless-mini-split.webp"
+          alt="Wall mounted ductless mini-split head above a living room window"
+          width="1024"
+          height="768"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- 5. Jayden's Mechanical -->
+  <section class="section bg-graphite">
+    <div class="container jayden">
+      <div class="jayden__copy">
+        <h2>Now part of the Jayden's Mechanical family</h2>
+        <p>
+          Premier Heating &amp; Cooling is now part of the
+          <a href={SITE.parent.url} target="_blank" rel="noopener">{SITE.parent.name}</a>
+          family. The staff, the service and the phone number are all the same, and the
+          shop is still at {SITE.address.street} in {SITE.address.city}.
+        </p>
+        <p>
+          Financing is available through SNAP, and emergency service is there for the
+          night a furnace quits. Send us the details or call the office and we will take
+          it from there.
+        </p>
+        <div class="jayden__actions">
+          <a class="btn btn--primary" href="/#quote">Get a Quote</a>
+          <a class="btn btn--ghost-light" href={SITE.phoneHref}>Call {SITE.phone}</a>
+        </div>
+      </div>
+      <figure class="jayden__media">
+        <img
+          src="/assets/strathroy.jpg"
+          alt="Street in Strathroy, Ontario, where Premier is based"
+          width="500"
+          height="300"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- 1. Page header ---- */
+  .pagehead {
+    border-bottom: 1px solid var(--steel-200);
+  }
+  .pagehead h1 {
+    max-width: 18ch;
+  }
+  .pagehead .lede {
+    margin-top: 16px;
+  }
+
+  /* ---- 2. Story ---- */
+  .story {
+    max-width: 65ch;
+  }
+  .story h2 {
+    margin-bottom: 18px;
+  }
+  .story p {
+    color: var(--ink-soft);
+  }
+  .story p + p {
+    margin-top: 16px;
+  }
+
+  /* ---- 3. Credentials ---- */
+  .creds {
+    background: var(--white);
+    border-block: 1px solid var(--steel-200);
+  }
+  .creds .temp-rule--short {
+    margin: 18px 0 clamp(28px, 4vw, 40px);
+  }
+  .cred-grid {
+    list-style: none;
+    display: grid;
+    gap: 0;
+    border-bottom: 1px solid var(--steel-200);
+  }
+  .cred {
+    border-top: 1px solid var(--steel-200);
+    padding: 20px 0;
+  }
+  .cred h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .cred p {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    max-width: 40ch;
+  }
+  .cred-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(26px, 5vw, 54px);
+    margin-top: clamp(30px, 4vw, 44px);
+  }
+  .cred-logos img {
+    height: 40px;
+    width: auto;
+    filter: grayscale(1);
+    opacity: 0.75;
+  }
+
+  /* ---- 4. Builder HVAC ---- */
+  .builder {
+    display: grid;
+    gap: clamp(28px, 5vw, 60px);
+    align-items: center;
+  }
+  .builder__copy .eyebrow {
+    margin-bottom: 10px;
+  }
+  .builder__copy h2 {
+    margin-bottom: 16px;
+  }
+  .builder__copy p {
+    color: var(--ink-soft);
+  }
+  .builder__copy > p + p {
+    margin-top: 14px;
+  }
+  .builder__quote {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: var(--white);
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .builder__quote p {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+  .builder__quote footer {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .builder__quote cite {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .builder__media {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .builder__media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  /* ---- 5. Jayden's Mechanical ---- */
+  .jayden {
+    display: grid;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+  }
+  .jayden__copy h2 {
+    margin-bottom: 16px;
+    max-width: 20ch;
+  }
+  .jayden__copy p + p {
+    margin-top: 14px;
+  }
+  .jayden__copy a {
+    color: var(--white);
+    font-weight: 600;
+  }
+  .jayden__copy a:hover {
+    color: var(--white);
+    text-decoration-thickness: 2px;
+  }
+  .jayden__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .jayden__media {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .jayden__media img {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+  }
+
+  /* ---- Responsive ---- */
+  @media (min-width: 560px) {
+    .cred-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(24px, 4vw, 48px);
+    }
+  }
+  @media (min-width: 900px) {
+    .cred-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .cred-logos img {
+      height: 46px;
+    }
+    .builder {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+    .jayden {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+    .jayden__media {
+      order: -1;
+    }
+  }
+</style>

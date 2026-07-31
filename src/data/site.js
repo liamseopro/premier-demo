@@ -19,7 +19,7 @@ export const SITE = {
   },
   // Exact wording pattern already live on premierheating.ca:
   familyLine:
-    "Premier Heating & Cooling is now part of the Jayden's Mechanical family. Same staff, same service, same phone number.",
+    "Premier Heating & Cooling is now part of the Jayden's Mechanical family. Same service, same phone number.",
 };
 
 export const SERVICES = [
@@ -34,7 +34,7 @@ export const SERVICES = [
     slug: 'ductless-air-conditioning',
     name: 'Ductless Air Conditioning',
     short: 'Mini-split systems for additions, older homes and rooms your ductwork misses.',
-    image: '/assets/ductless-01.jpg',
+    image: '/assets/ductless-mini-split.webp',
     temp: 'cool',
   },
   {
@@ -65,6 +65,12 @@ export const SERVICES = [
     image: '/assets/Water-Heater.jpg',
     temp: 'heat',
   },
+];
+
+// Towns with their own location page. Add an entry here and it appears in the
+// Service Areas nav dropdown and the footer automatically.
+export const LOCATIONS = [
+  { slug: 'st-thomas', name: 'St. Thomas' },
 ];
 
 export const AREAS = [
