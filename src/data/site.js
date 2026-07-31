@@ -34,7 +34,7 @@ export const SERVICES = [
     slug: 'ductless-air-conditioning',
     name: 'Ductless Air Conditioning',
     short: 'Mini-split systems for additions, older homes and rooms your ductwork misses.',
-    image: '/assets/thermostat.jpg',
+    image: '/assets/ductless-01.jpg',
     temp: 'cool',
   },
   {
