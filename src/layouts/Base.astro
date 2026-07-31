@@ -44,7 +44,9 @@ const schema = {
     <meta name="robots" content="noindex, nofollow" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/assets/premier-logo.png" type="image/png" />
+    <!-- No favicon for now: the wide wordmark is unreadable at 16px. Needs a
+         square mark cropped from the logo ellipse before one goes back in. -->
+    <link rel="icon" href="data:," />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
