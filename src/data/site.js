@@ -17,9 +17,9 @@ export const SITE = {
     name: "Jayden's Mechanical",
     url: 'https://jaydensmechanical.com',
   },
-  // Exact wording pattern already live on premierheating.ca:
+  // Client-approved wording. Use this line verbatim; do not reword it.
   familyLine:
-    "Premier Heating & Cooling is now part of the Jayden's Mechanical family. Same service, same phone number.",
+    "Proudly part of Jayden's Mechanical’s Family of Brands.",
 };
 
 export const SERVICES = [

@@ -19,8 +19,12 @@
   --graphite-2: #242d33;    /* dark surface step */
   --ink: #171b1e;           /* off-black cool text */
   --ink-soft: #4b555c;      /* muted body */
-  --red: #d7262d;           /* THE accent: logo heat-red (CTAs, active) */
+  --red: #d7262d;           /* THE accent: logo heat-red (rules, active states, markers) */
   --red-deep: #b01e24;      /* accent hover */
+  /* Button fills use a deeper red: white on --red is only 4.99:1, which reads as
+     muddy at button text sizes. These clear AA comfortably (7.0:1 / 9.1:1). */
+  --red-btn: #ad1d23;
+  --red-btn-hover: #8e171c;
   --blue: #0d9bd8;          /* semantic cooling hue only (temp rule, cool markers) */
   --blue-deep: #0a7cad;
   --white: #ffffff;
@@ -105,8 +109,8 @@ p { text-wrap: pretty; }
     color var(--dur) var(--ease), transform 120ms var(--ease), box-shadow var(--dur) var(--ease);
 }
 .btn:active { transform: translateY(1px); }
-.btn--primary { background: var(--red); color: var(--white); box-shadow: var(--shadow-sm); }
-.btn--primary:hover { background: var(--red-deep); color: var(--white); box-shadow: var(--shadow); }
+.btn--primary { background: var(--red-btn); color: var(--white); box-shadow: var(--shadow-sm); }
+.btn--primary:hover { background: var(--red-btn-hover); color: var(--white); box-shadow: var(--shadow); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--steel-200); }
 .btn--ghost:hover { border-color: var(--ink); color: var(--ink); }
 .btn--ghost-light { background: transparent; color: var(--white); border-color: rgba(255, 255, 255, 0.45); }
