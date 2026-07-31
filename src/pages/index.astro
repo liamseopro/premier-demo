@@ -1,0 +1,658 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, SERVICES, AREAS, TESTIMONIAL, TRUST } from '../data/site.js';
+
+// Natural pixel dimensions of the source images (modest-res WP originals).
+const IMG_DIMS = {
+  '/assets/air-conditioner-basic-1.jpg': [300, 300],
+  '/assets/thermostat.jpg': [1030, 529],
+  '/assets/furnace-basic-1.jpg': [300, 300],
+  '/assets/boiler-basic.jpg': [300, 300],
+  '/assets/Gas-Line.jpg': [300, 300],
+  '/assets/Water-Heater.jpg': [300, 300],
+};
+const TRUST_DIMS = {
+  '/assets/lennox-logo-small.png': [300, 91],
+  '/assets/Better-Business-Bureau-logo-1-450x171.png': [450, 171],
+  '/assets/communityvotes-winner-logo.png': [350, 279],
+};
+---
+<Base
+  title="Furnace, AC & HVAC Experts in Strathroy | Premier Heating & Cooling"
+  description="Furnace, AC, boiler and water heater service in Strathroy, London and St. Thomas from Premier Heating & Cooling. Lennox authorized dealer, TSSA registered."
+  active="home"
+>
+  <!-- 1. Hero -->
+  <section class="hero">
+    <img
+      class="hero__img"
+      src="/assets/banner-thermostat-1.jpg"
+      alt=""
+      width="1600"
+      height="470"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <h1>Heating and cooling done right</h1>
+      <p class="hero__sub">
+        Furnaces, AC, boilers and water heaters for homeowners and home builders, from Strathroy to St. Thomas.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#quote">Get a Quote</a>
+        <a class="btn btn--ghost-light" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Trust row -->
+  <section class="trust section--tight">
+    <div class="container trust__inner reveal">
+      <div class="trust__logos">
+        {TRUST.map((t) => (
+          <img
+            src={t.image}
+            alt={t.alt}
+            width={TRUST_DIMS[t.image][0]}
+            height={TRUST_DIMS[t.image][1]}
+            loading="lazy"
+          />
+        ))}
+      </div>
+      <p class="trust__line">Licensed, insured, TSSA registered and WSIB covered.</p>
+    </div>
+  </section>
+
+  <!-- 3. Services grid -->
+  <section class="section">
+    <div class="container reveal">
+      <div class="section-head">
+        <p class="eyebrow">Our services</p>
+        <h2>What we install, repair and maintain</h2>
+        <hr class="temp-rule temp-rule--short" />
+        <p class="lede">
+          One licensed crew for the whole mechanical side of your home, backed by full Lennox warranty coverage as an
+          authorized dealer.
+        </p>
+      </div>
+      <div class="svc-grid">
+        {SERVICES.map((s) => (
+          <a class="card svc" href={`/services/#${s.slug}`}>
+            <div class="svc__media">
+              <img
+                src={s.image}
+                alt={s.name}
+                width={IMG_DIMS[s.image][0]}
+                height={IMG_DIMS[s.image][1]}
+                loading="lazy"
+              />
+            </div>
+            <div class="svc__body">
+              <h3>{s.name}</h3>
+              <p>{s.short}</p>
+              <span class={`svc__temp svc__temp--${s.temp}`}>
+                {s.temp === 'heat' ? (
+                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="currentColor">
+                    <path d="M8.4 1c.3 2-.4 3.2-1.5 4.4C5.7 6.7 4.3 8.1 4.3 10.4 4.3 13 6 15 8 15s3.7-2 3.7-4.6c0-1.5-.7-2.7-1.6-3.8-.2.6-.5 1-.9 1.4-.1-1.5-.5-2.9-1.6-4C7.9 3 8.2 2 8.4 1z" />
+                  </svg>
+                ) : (
+                  <svg
+                    viewBox="0 0 16 16"
+                    width="14"
+                    height="14"
+                    aria-hidden="true"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  >
+                    <path d="M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5" />
+                  </svg>
+                )}
+                {s.temp === 'heat' ? 'Heating' : 'Cooling'}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Builder HVAC split -->
+  <section class="section builder">
+    <div class="container builder__grid reveal">
+      <figure class="builder__media">
+        <img src="/assets/crew.jpg" alt="Radiator on a hydronic heating system installed by Premier" width="1030" height="521" loading="lazy" />
+      </figure>
+      <div class="builder__copy">
+        <p class="eyebrow">Builder HVAC</p>
+        <h2>The HVAC contractor home builders call back</h2>
+        <p>
+          Beyond service calls, Premier installs complete heating and cooling systems for new home construction across
+          Middlesex County. Builders like Marlo Homes rely on us to size, rough in and finish HVAC on schedule, house
+          after house.
+        </p>
+        <p>
+          Premier is now part of the Jayden's Mechanical family, with the same staff, the same service and the same
+          phone number.
+        </p>
+        <blockquote class="builder__quote">
+          <p>“{TESTIMONIAL.quote}”</p>
+          <footer>
+            <cite>{TESTIMONIAL.author}</cite>, {TESTIMONIAL.org}
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Service area band -->
+  <section class="section bg-steel areas">
+    <div class="container areas__inner reveal">
+      <h2>Serving Strathroy, London, St. Thomas and the surrounding towns</h2>
+      <p class="areas__note">
+        We run service calls from our shop at 176 Metcalfe St E in Strathroy to homes and job sites in these communities.
+      </p>
+      <ul class="area-list">
+        {AREAS.map((a) => (
+          <li>{a}</li>
+        ))}
+      </ul>
+      <p class="areas__link">
+        On the east side of the county? See our <a href="/locations/st-thomas/">St. Thomas service area</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 6. Financing + emergency band -->
+  <section class="section bg-graphite">
+    <div class="container band-grid reveal">
+      <div class="band-panel band-panel--wide">
+        <h2>Financing available through SNAP</h2>
+        <p>
+          A new furnace or air conditioner is a big purchase, and the timing is rarely your choice. Premier offers SNAP
+          Financing so you can spread the cost into monthly payments and put the right system in, not the cheapest
+          stopgap. Ask about financing when you request your quote.
+        </p>
+        <a class="btn btn--ghost-light" href="#quote">Get a Quote</a>
+      </div>
+      <div class="band-panel band-panel--narrow">
+        <h2>Same-day and emergency service</h2>
+        <p>No heat in January or no cooling in a heat wave will not wait for business hours. Neither do we.</p>
+        <a class="btn btn--primary" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Quote form -->
+  <section class="section" id="quote">
+    <div class="container quote reveal">
+      <div class="section-head section-head--center">
+        <h2>Get a Quote</h2>
+        <hr class="temp-rule temp-rule--short" />
+        <p class="lede">Tell us what you need and we will get back to you with next steps and honest pricing.</p>
+      </div>
+
+      <form class="card quote__card" id="quote-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="q-name">Name</label>
+            <input id="q-name" name="name" type="text" autocomplete="name" required />
+            <p class="error" id="q-name-error">Name is empty. Enter your name so we know who to ask for.</p>
+          </div>
+          <div class="field">
+            <label for="q-phone">Phone</label>
+            <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
+            <p class="error" id="q-phone-error">
+              That phone number is missing digits. Enter a 10 digit number like 519 245 5945.
+            </p>
+          </div>
+          <div class="field field--full">
+            <label for="q-email">Email</label>
+            <input id="q-email" name="email" type="email" autocomplete="email" required />
+            <p class="error" id="q-email-error">That email address looks incomplete. Enter it like name@example.com.</p>
+          </div>
+          <div class="field field--full">
+            <label for="q-message">What do you need done?</label>
+            <textarea id="q-message" name="message" rows="5" autocomplete="off"></textarea>
+          </div>
+          <div class="visually-hidden" aria-hidden="true">
+            <label for="q-company">Company</label>
+            <input id="q-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+        </div>
+        <div class="quote__actions">
+          <button class="btn btn--primary" type="submit">Get a Quote</button>
+          <p class="quote__hint">Submitting opens your email app with the details filled in.</p>
+        </div>
+      </form>
+
+      <div id="quote-success" class="card quote__card quote__success" role="status" hidden>
+        <h3>Your request is ready to send</h3>
+        <p>Your email app should now be open with the details filled in. Hit send and we will get back to you.</p>
+        <p>
+          If nothing opened, call <a href={SITE.phoneHref}>{SITE.phone}</a> or email
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we will take the details over the phone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var form = document.getElementById('quote-form');
+      if (!form) return;
+      var success = document.getElementById('quote-success');
+      var rules = [
+        {
+          id: 'q-name',
+          valid: function (v) {
+            return v.trim().length >= 2;
+          },
+        },
+        {
+          id: 'q-phone',
+          valid: function (v) {
+            var digits = v.replace(/\D/g, '');
+            return digits.length >= 10 && digits.length <= 11;
+          },
+        },
+        {
+          id: 'q-email',
+          valid: function (v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+          },
+        },
+      ];
+
+      function check(rule) {
+        var input = document.getElementById(rule.id);
+        var field = input.closest('.field');
+        var ok = rule.valid(input.value);
+        field.classList.toggle('invalid', !ok);
+        input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (ok) {
+          input.removeAttribute('aria-describedby');
+        } else {
+          input.setAttribute('aria-describedby', rule.id + '-error');
+        }
+        return ok;
+      }
+
+      rules.forEach(function (rule) {
+        var input = document.getElementById(rule.id);
+        input.addEventListener('blur', function () {
+          check(rule);
+        });
+        input.addEventListener('input', function () {
+          if (input.closest('.field').classList.contains('invalid')) check(rule);
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Honeypot: real visitors never see or fill this field.
+        var trap = document.getElementById('q-company');
+        if (trap && trap.value) return;
+
+        var firstBad = null;
+        rules.forEach(function (rule) {
+          if (!check(rule) && !firstBad) firstBad = document.getElementById(rule.id);
+        });
+        if (firstBad) {
+          firstBad.focus();
+          return;
+        }
+
+        var name = document.getElementById('q-name').value.trim();
+        var phone = document.getElementById('q-phone').value.trim();
+        var email = document.getElementById('q-email').value.trim();
+        var message = document.getElementById('q-message').value.trim();
+        var body =
+          'Name: ' + name + '\nPhone: ' + phone + '\nEmail: ' + email + '\n\nMessage:\n' + (message || '(none)');
+        var href =
+          'mailto:info@premierheating.ca?subject=' +
+          encodeURIComponent('Quote request from ' + name) +
+          '&body=' +
+          encodeURIComponent(body);
+
+        form.hidden = true;
+        success.hidden = false;
+        window.location.href = href;
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  /* ---- 1. Hero ---- */
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: clamp(460px, 56vh, 620px);
+    overflow: hidden;
+    background: var(--graphite);
+  }
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(28, 35, 39, 0.92) 0%, rgba(28, 35, 39, 0.72) 48%, rgba(28, 35, 39, 0.38) 100%);
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(72px, 10vw, 120px);
+  }
+  .hero__inner h1 {
+    color: var(--white);
+    max-width: 15ch;
+  }
+  .hero__sub {
+    color: #dbe3e8;
+    font-size: 1.15rem;
+    max-width: 46ch;
+    margin-top: 16px;
+  }
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  /* ---- 2. Trust row ---- */
+  .trust {
+    background: var(--white);
+    border-bottom: 1px solid var(--steel-200);
+    padding-block: clamp(28px, 4vw, 44px);
+  }
+  .trust__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px clamp(28px, 5vw, 56px);
+  }
+  .trust__logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(24px, 4vw, 48px);
+  }
+  .trust__logos img {
+    height: 46px;
+    width: auto;
+    filter: grayscale(1);
+    opacity: 0.72;
+  }
+  .trust__line {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    text-align: center;
+  }
+
+  /* ---- Shared section head ---- */
+  .section-head {
+    max-width: 720px;
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+  .section-head .eyebrow {
+    margin-bottom: 10px;
+  }
+  .section-head .temp-rule {
+    margin: 18px 0;
+  }
+  .section-head--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .section-head--center .temp-rule {
+    margin-inline: auto;
+  }
+  .section-head--center .lede {
+    margin-inline: auto;
+  }
+
+  /* ---- 3. Services grid ---- */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .svc {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .svc__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--steel-200);
+    background: var(--steel-100);
+  }
+  .svc__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .svc__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 22px 22px;
+    flex: 1;
+  }
+  .svc__body h3 {
+    color: var(--ink);
+    transition: color var(--dur) var(--ease);
+  }
+  .svc:hover h3 {
+    color: var(--red);
+  }
+  .svc__body p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  .svc__temp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+  .svc__temp--heat {
+    color: var(--red-deep);
+  }
+  .svc__temp--cool {
+    color: var(--blue-deep);
+  }
+
+  /* ---- 4. Builder split ---- */
+  .builder {
+    background: var(--white);
+    border-block: 1px solid var(--steel-200);
+  }
+  .builder__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .builder__media {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .builder__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .builder__copy .eyebrow {
+    margin-bottom: 10px;
+  }
+  .builder__copy h2 {
+    margin-bottom: 16px;
+  }
+  .builder__copy p {
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .builder__quote {
+    margin-top: 22px;
+    padding: 18px 22px;
+    border-left: 3px solid var(--red);
+    background: var(--steel-50);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .builder__quote p {
+    color: var(--ink);
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+  .builder__quote footer {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .builder__quote cite {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---- 5. Service area band ---- */
+  .areas__inner {
+    text-align: center;
+  }
+  .areas__note {
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 14px auto 30px;
+  }
+  .area-list {
+    list-style: none;
+    columns: 3;
+    column-gap: 40px;
+    max-width: 680px;
+    margin-inline: auto;
+    text-align: left;
+  }
+  .area-list li {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    padding: 9px 2px;
+    border-bottom: 1px solid var(--steel-200);
+    break-inside: avoid;
+  }
+  .areas__link {
+    margin-top: 28px;
+    color: var(--ink-soft);
+  }
+
+  /* ---- 6. Financing + emergency band ---- */
+  .band-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  .band-panel {
+    border-radius: var(--radius);
+    padding: clamp(26px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .band-panel .btn {
+    margin-top: auto;
+  }
+  .band-panel--wide {
+    background: var(--graphite-2);
+  }
+  .band-panel--narrow {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  /* ---- 7. Quote form ---- */
+  .quote__card {
+    max-width: 760px;
+    margin-inline: auto;
+    padding: clamp(24px, 4vw, 40px);
+  }
+  .quote__card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .field--full {
+    grid-column: 1 / -1;
+  }
+  .quote__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .quote__hint {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .quote__success h3 {
+    margin-bottom: 12px;
+  }
+  .quote__success p {
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 980px) {
+    .svc-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .builder__grid {
+      grid-template-columns: 1fr;
+    }
+    .area-list {
+      columns: 2;
+    }
+  }
+  @media (max-width: 640px) {
+    .svc-grid {
+      grid-template-columns: 1fr;
+    }
+    .band-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .trust__logos img {
+      height: 38px;
+    }
+    .hero__cta .btn {
+      flex: 1 1 100%;
+    }
+  }
+</style>

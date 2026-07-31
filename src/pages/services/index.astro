@@ -1,0 +1,223 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE, SERVICES } from '../../data/site.js';
+
+// Per-service page copy + image metadata, keyed by slug.
+const DETAILS = {
+  'air-conditioning': {
+    alt: 'Outdoor central air conditioning unit',
+    w: 300,
+    h: 300,
+    paras: [
+      'We install, repair and maintain central air conditioning across Strathroy, London and the surrounding towns. Every replacement starts with proper sizing for your home, and we walk you through the efficiency ratings so you can weigh the purchase price against what a higher SEER unit saves each summer.',
+      'Call us when the air blowing out is warm, the unit starts and stops in short bursts, or ice forms on the refrigerant line. A spring tune-up catches most of these problems before the first heat wave.',
+    ],
+  },
+  'ductless-air-conditioning': {
+    alt: 'Thermostat set to cool a single room',
+    w: 1030,
+    h: 529,
+    paras: [
+      'Ductless mini-splits cool the rooms your ductwork misses: additions, upper floors that never cool down, converted garages and older homes built without ducts at all.',
+      'We install, repair and maintain single-zone and multi-zone systems, and we help you place each head unit where it will actually do the work. Most home installs are finished in a day.',
+    ],
+  },
+  'furnace': {
+    alt: 'Residential gas furnace',
+    w: 300,
+    h: 300,
+    paras: [
+      'We install high-efficiency gas furnaces and repair and tune up all makes. Sizing matters as much as the efficiency number: an oversized furnace starts and stops constantly, wears out sooner and leaves rooms uneven.',
+      'Book a fall tune-up before the cold sets in, and call right away if the furnace will not start, will not stay lit, or runs without warming the house. Emergency service is available when it quits at the worst time.',
+    ],
+  },
+  'boiler': {
+    alt: 'Residential boiler system',
+    w: 300,
+    h: 300,
+    paras: [
+      'Boilers are their own trade, and we service and replace them regularly: systems feeding cast iron radiators, baseboards and in-floor heating alike.',
+      'Cold radiators, pressure that keeps dropping, or a system that needs bleeding every few weeks are all worth a service call now, before they turn into a no-heat call in January.',
+    ],
+  },
+  'gas-line': {
+    alt: 'Gas line piping',
+    w: 300,
+    h: 300,
+    paras: [
+      'We run new gas lines for ranges, dryers, BBQs, garage heaters and pool heaters, and we move or cap existing lines during renovations.',
+      'Our technicians are licensed gas fitters and the company is TSSA registered, so every run is properly sized, pressure tested and left to code.',
+    ],
+  },
+  'water-heater': {
+    alt: 'Residential water heater tank',
+    w: 300,
+    h: 300,
+    paras: [
+      'We repair and replace both tank and tankless water heaters. A standard tank costs less to install and is simple to service; a tankless unit costs more up front but delivers endless hot water and frees up floor space.',
+      'We will size either option to how much hot water your household actually uses and give you a straight recommendation. If your current tank is leaking, call today, because a failing tank rarely gives much warning.',
+    ],
+  },
+};
+
+// Layout plan: split, split (flipped), band, split, split (flipped), band.
+const isBand = (i) => i === 2 || i === 5;
+const isFlip = (i) => i === 1 || i === 4;
+---
+<Base
+  title="HVAC Services in Strathroy & London | Premier Heating & Cooling"
+  description="Central and ductless AC, furnace, boiler, water heater and gas line service in Strathroy and London. Authorized Lennox dealer, licensed and TSSA registered."
+  active="services"
+>
+  <!-- 1. Compact page header -->
+  <section class="svc-hero bg-steel">
+    <div class="container">
+      <h1>HVAC Services in Strathroy and London</h1>
+      <hr class="temp-rule temp-rule--short" aria-hidden="true" />
+      <p class="lede">
+        Installation, repair and maintenance for every system that heats and cools your home, from one licensed and insured local crew.
+      </p>
+      <a class="btn btn--primary" href="/#quote">Get a Quote</a>
+    </div>
+  </section>
+
+  <!-- 2. On-page service index -->
+  <div class="svc-index">
+    <div class="container">
+      <nav aria-label="Services on this page">
+        {SERVICES.map((s) => <a href={`#${s.slug}`}>{s.name}</a>)}
+      </nav>
+    </div>
+  </div>
+
+  <!-- 3. Six service blocks -->
+  {SERVICES.map((s, i) => {
+    const d = DETAILS[s.slug];
+    const btnClass = i % 2 === 0 ? 'btn--primary' : 'btn--ghost';
+    return (
+      <section class={`svc ${isBand(i) ? 'svc--band' : ''} ${isFlip(i) ? 'svc--flip' : ''}`} id={s.slug}>
+        <div class={`container ${isBand(i) ? 'svc-band' : 'svc-split'}`}>
+          <div class="svc-copy">
+            {s.temp === 'heat' ? (
+              <p class="svc-marker svc-marker--heat">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1.2 3-.4 5-2 6.8C8.5 10.5 7 12.2 7 14.5a5 5 0 0 0 10 0c0-1.6-.6-3-1.5-4.2-.4 1.1-1.1 1.9-2.2 2.3.7-2.8.3-7-1.3-10.6z"/></svg>
+                <span>Heating</span>
+              </p>
+            ) : (
+              <p class="svc-marker svc-marker--cool">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/></svg>
+                <span>Cooling</span>
+              </p>
+            )}
+            <h2>{s.name}</h2>
+            {d.paras.map((p) => <p>{p}</p>)}
+            <a class={`btn ${btnClass}`} href="/#quote">Get a Quote</a>
+          </div>
+          <div class="svc-media">
+            <img src={s.image} alt={d.alt} width={d.w} height={d.h} loading="lazy" />
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- Honest catch-all line -->
+  <section class="svc-other section--tight">
+    <div class="container reveal">
+      <p>We also work on fireplaces, HRVs and other home comfort systems, so if you do not see it listed above, call and ask.</p>
+    </div>
+  </section>
+
+  <!-- 4. Lennox band -->
+  <section class="lennox">
+    <div class="container lennox__row reveal">
+      <img src="/assets/lennox-logo-small.png" alt="Lennox authorized dealer" width="300" height="91" loading="lazy" />
+      <p>
+        Premier Heating &amp; Cooling is an authorized Lennox dealer, installing and repairing Lennox equipment backed by the full Lennox warranty. We service all makes as well, so whatever brand is in your basement, we can look after it.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. Closing CTA band -->
+  <section class="closing bg-graphite section">
+    <div class="container reveal">
+      <h2>Get a quote on any of these services</h2>
+      <p>
+        Financing is available through SNAP, and emergency service covers the days when a furnace or air conditioner quits without warning.
+      </p>
+      <div class="closing__actions">
+        <a class="btn btn--primary" href="/#quote">Get a Quote</a>
+        <a class="btn btn--ghost-light" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- Page header ---- */
+  .svc-hero { padding: clamp(44px, 7vw, 80px) 0; }
+  .svc-hero .temp-rule--short { margin: 18px 0 16px; }
+  .svc-hero .lede { margin-bottom: 26px; }
+
+  /* ---- Anchor index row ---- */
+  .svc-index { background: var(--white); border-block: 1px solid var(--steel-200); }
+  .svc-index nav { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; padding-block: 4px; }
+  .svc-index a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.97rem;
+    color: var(--ink-soft); text-decoration: none;
+  }
+  .svc-index a:hover { color: var(--red); text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---- Service blocks ---- */
+  .svc { padding: clamp(44px, 6vw, 80px) 0; scroll-margin-top: 96px; }
+  .svc--band { background: var(--white); border-block: 1px solid var(--steel-200); }
+
+  .svc-split, .svc-band { display: grid; gap: clamp(24px, 4vw, 52px); align-items: center; }
+
+  .svc-marker {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+  .svc-marker svg { flex: none; }
+  .svc-marker--heat { color: var(--red-deep); }
+  .svc-marker--cool { color: var(--blue-deep); }
+
+  .svc-copy h2 { margin-bottom: 14px; }
+  .svc-copy p:not(.svc-marker) { color: var(--ink-soft); margin-bottom: 14px; max-width: 62ch; }
+  .svc-copy .btn { margin-top: 8px; }
+
+  .svc-media img {
+    width: 100%;
+    border: 1px solid var(--steel-200); border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .svc-band .svc-media img { max-width: 320px; }
+
+  @media (min-width: 880px) {
+    .svc-split { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); }
+    .svc--flip .svc-split { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); }
+    .svc--flip .svc-media { order: -1; }
+    .svc-band { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+    .svc-band .svc-media { order: -1; }
+  }
+
+  /* ---- Catch-all line ---- */
+  .svc-other { padding: clamp(36px, 5vw, 56px) 0; text-align: center; }
+  .svc-other p { color: var(--ink-soft); max-width: 62ch; margin-inline: auto; }
+
+  /* ---- Lennox band ---- */
+  .lennox { background: var(--white); border-block: 1px solid var(--steel-200); padding: clamp(40px, 5vw, 64px) 0; }
+  .lennox__row { display: grid; gap: 24px; align-items: center; }
+  .lennox img { width: 190px; height: auto; }
+  .lennox p { color: var(--ink-soft); max-width: 66ch; }
+  @media (min-width: 760px) {
+    .lennox__row { grid-template-columns: 220px minmax(0, 1fr); }
+  }
+
+  /* ---- Closing band ---- */
+  .closing { text-align: center; }
+  .closing p { max-width: 58ch; margin: 14px auto 28px; }
+  .closing__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+</style>

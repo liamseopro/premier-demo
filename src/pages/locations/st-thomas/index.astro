@@ -1,0 +1,281 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { SITE, SERVICES, TESTIMONIAL } from '../../../data/site.js';
+
+const title = 'Heating & Cooling in St. Thomas | Premier Heating & Cooling';
+const description =
+  'Furnace, AC and full HVAC service in St. Thomas and across Elgin County from Premier Heating & Cooling, the builder trusted contractor 40 minutes away in Strathroy.';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://premierheating.ca/' },
+    { '@type': 'ListItem', position: 2, name: 'St. Thomas', item: 'https://premierheating.ca/locations/st-thomas/' },
+  ],
+};
+---
+<Base title={title} description={description} active="st-thomas">
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- 1. Local hero -->
+  <section class="section hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">St. Thomas</span>
+        </nav>
+        <h1>Heating and cooling in St.&nbsp;Thomas</h1>
+        <hr class="temp-rule temp-rule--short" aria-hidden="true" />
+        <p class="lede">
+          Installs, repairs and maintenance across St. Thomas and Elgin County from a
+          builder trusted crew based in nearby Strathroy.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="/#quote">Get a Quote</a>
+          <a class="btn btn--ghost" href={SITE.phoneHref}>Call {SITE.phone}</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img
+          src="/assets/st-thomas.jpg"
+          alt="Street view of downtown St. Thomas, Ontario"
+          width="500"
+          height="300"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2. Local proof -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="prose">
+        <h2>A city in the middle of a building boom</h2>
+        <p>
+          St. Thomas is in the middle of a construction surge. The Volkswagen PowerCo
+          battery gigafactory is going up on the edge of the city, and new subdivisions
+          are following across St. Thomas and Elgin County as builders work to house the
+          people arriving with it.
+        </p>
+        <p>
+          That matters when you pick an HVAC company. A new build needs equipment sized
+          and installed to a builder's schedule, and a young system needs its first
+          service call done by people who know how these houses go together. Premier
+          installs for home builders as well as homeowners, and St. Thomas is one of our
+          core service areas. Our shop sits at 176 Metcalfe St E in Strathroy, about 40
+          minutes up the road.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Services available in St. Thomas -->
+  <section class="section">
+    <div class="container svc-wrap reveal">
+      <h2>Services available in St. Thomas</h2>
+      <p class="lede">
+        Every core Premier service is available in St. Thomas, from new construction
+        installs to repairs on equipment another company put in.
+      </p>
+      <ul class="svc-list">
+        {SERVICES.map((s) => (
+          <li>
+            <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 7.5 5.5 11 12 3.5" />
+            </svg>
+            <a href={`/services/#${s.slug}`}>{s.name}</a>
+          </li>
+        ))}
+      </ul>
+      <p class="svc-note">
+        Licensed and insured, TSSA registered and WSIB covered. Lennox authorized
+        dealer, with financing available through SNAP.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Builder angle -->
+  <section class="section bg-steel">
+    <div class="container builder-grid reveal">
+      <div class="builder-quote">
+        <p class="eyebrow">Builder trusted</p>
+        <blockquote>
+          <p>{TESTIMONIAL.quote}</p>
+        </blockquote>
+        <p class="builder-cite">{TESTIMONIAL.author}, {TESTIMONIAL.org}</p>
+        <p class="builder-tie">
+          If your St. Thomas house is a recent build, the crew that installs for
+          builders like Marlo Homes is a straightforward first call when it needs its
+          first tune-up or repair.
+        </p>
+      </div>
+      <img
+        class="builder-photo"
+        src="/assets/crew.jpg"
+        alt="Radiator on a hydronic heating system installed by Premier"
+        width="1030"
+        height="521"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </section>
+
+  <!-- 5. CTA band -->
+  <section class="section bg-graphite">
+    <div class="container cta-band">
+      <h2>Book service in St. Thomas</h2>
+      <p>
+        Emergency service is available, and regular calls are booked from our Strathroy
+        shop, about 40 minutes away.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn--primary" href="/#quote">Get a Quote</a>
+        <a class="btn btn--ghost-light" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero { padding-top: clamp(36px, 5vw, 64px); }
+  .hero-grid {
+    display: grid;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  .crumbs {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .crumbs a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .crumbs a:hover { color: var(--red); text-decoration: underline; }
+  .crumbs [aria-current] { color: var(--ink); font-weight: 600; }
+  .hero-copy .temp-rule--short { margin: 18px 0; }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .hero-media {
+    background: var(--white);
+    border: 1px solid var(--steel-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 10px;
+  }
+  .hero-media img {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  @media (min-width: 861px) {
+    .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+  }
+
+  /* Local proof */
+  .prose { max-width: 65ch; }
+  .prose h2 { margin-bottom: 18px; }
+  .prose p { color: var(--ink-soft); }
+  .prose p + p { margin-top: 16px; }
+
+  /* Services checklist */
+  .svc-wrap h2 { margin-bottom: 12px; }
+  .svc-list {
+    list-style: none;
+    display: grid;
+    gap: 0 clamp(24px, 4vw, 56px);
+    max-width: 760px;
+    margin-top: 26px;
+  }
+  .svc-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--steel-200);
+  }
+  .svc-list svg { flex: none; color: var(--ink-soft); }
+  .svc-list a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+  }
+  .svc-list a:hover { color: var(--red); text-decoration: underline; }
+  .svc-note {
+    margin-top: 22px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  @media (min-width: 561px) {
+    .svc-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Builder band */
+  .builder-grid {
+    display: grid;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  .builder-quote blockquote p {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-top: 14px;
+  }
+  .builder-cite {
+    margin-top: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .builder-tie {
+    margin-top: 18px;
+    color: var(--ink-soft);
+    max-width: 55ch;
+  }
+  .builder-photo {
+    width: 100%;
+    aspect-ratio: 1030 / 521;
+    object-fit: cover;
+    border: 1px solid var(--steel-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  @media (min-width: 861px) {
+    .builder-grid { grid-template-columns: 1.1fr 0.9fr; }
+  }
+
+  /* CTA band */
+  .cta-band {
+    text-align: center;
+    max-width: 720px;
+  }
+  .cta-band p { margin-top: 14px; }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+</style>
