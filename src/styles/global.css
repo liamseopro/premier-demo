@@ -21,6 +21,8 @@
   --ink-soft: #4b555c;      /* muted body */
   --red: #d7262d;           /* THE accent: logo heat-red (rules, active states, markers) */
   --red-deep: #b01e24;      /* accent hover */
+  --red-text: #be242d;      /* WCAG: red as small text/links (5.3:1) */
+  --border-ui: #828394;    /* WCAG 1.4.11: ghost-btn + form-field boundary */
   /* Button fills use a deeper red: white on --red is only 4.99:1, which reads as
      muddy at button text sizes. These clear AA comfortably (7.0:1 / 9.1:1). */
   --red-btn: #ad1d23;
@@ -64,7 +66,7 @@ body {
 }
 img, svg, video { max-width: 100%; display: block; height: auto; }
 a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-a:hover { color: var(--red); }
+a:hover { color: var(--red-text); }
 button { font-family: inherit; cursor: pointer; }
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -111,7 +113,7 @@ p { text-wrap: pretty; }
 .btn:active { transform: translateY(1px); }
 .btn--primary { background: var(--red-btn); color: var(--white); box-shadow: var(--shadow-sm); }
 .btn--primary:hover { background: var(--red-btn-hover); color: var(--white); box-shadow: var(--shadow); }
-.btn--ghost { background: transparent; color: var(--ink); border-color: var(--steel-200); }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--border-ui); }
 .btn--ghost:hover { border-color: var(--ink); color: var(--ink); }
 .btn--ghost-light { background: transparent; color: var(--white); border-color: rgba(255, 255, 255, 0.45); }
 .btn--ghost-light:hover { border-color: var(--white); color: var(--white); }
@@ -129,7 +131,7 @@ p { text-wrap: pretty; }
 .field label { font-weight: 600; font-size: 0.95rem; }
 .field input, .field textarea, .field select {
   font: inherit; color: var(--ink); background: var(--white);
-  border: 1px solid var(--steel-200); border-radius: var(--radius); padding: 12px 14px; width: 100%;
+  border: 1px solid var(--border-ui); border-radius: var(--radius); padding: 12px 14px; width: 100%;
 }
 .field input:focus, .field textarea:focus { border-color: var(--blue-deep); outline: 2px solid var(--blue); outline-offset: 0; }
 .field .error { color: var(--red-deep); font-size: 0.9rem; display: none; }
@@ -139,7 +141,7 @@ p { text-wrap: pretty; }
 /* ---- Utility ---- */
 .eyebrow {
   font-family: var(--font-display); font-weight: 600; font-size: 0.82rem;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--red);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-text);
 }
 .lede { font-size: 1.18rem; color: var(--ink-soft); max-width: 62ch; }
 .visually-hidden {
