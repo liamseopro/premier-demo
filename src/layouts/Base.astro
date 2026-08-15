@@ -4,8 +4,10 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../data/site.js';
 
-const { title, description, active = '' } = Astro.props;
+const { title, description, path, active = '', ogImage } = Astro.props;
 const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonical = SITE.url + path;
+const og = ogImage || `${SITE.url}/assets/img/og-default.jpg`;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -44,6 +46,18 @@ const schema = {
     <meta name="robots" content="noindex, nofollow" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:locale" content="en_CA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
     <!-- No favicon for now: the wide wordmark is unreadable at 16px. Needs a
          square mark cropped from the logo ellipse before one goes back in. -->
     <link rel="icon" href="data:," />

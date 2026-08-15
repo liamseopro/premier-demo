@@ -4,6 +4,9 @@
 export const SITE = {
   name: 'Premier Heating & Cooling',
   legalName: 'Premier Heating & Cooling',
+  domain: 'premierheating.ca',
+  // Demo host now; production cutover to premierheating.ca is a separate step.
+  url: 'https://premier-demo.headbangermarketing.com',
   phone: '(519) 245-5945',
   phoneHref: 'tel:5192455945',
   email: 'info@premierheating.ca',
